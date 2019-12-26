@@ -1,7 +1,6 @@
 ## Node Rest WebServer
 
-Esta es una aplicacion rest server con node sencilla sin conexion a base de datos, solo para testear las 
-peticiones HTTP GET POST PUT DELETE
+Aplicación node Rest Server con peticiones GET POST PUT DELETE
 
 Recuerda ejecutar el comando para instalar los modulos de node
 
