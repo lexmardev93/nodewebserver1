@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.use(require('./routes/usuarios'));
 
-mongoose.connect(process.env.URL_DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.URL_DB + '&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(
         () => console.log('Conectado a mongodb'),
         err => { console.log('Error al conectar mongo ', err); });
