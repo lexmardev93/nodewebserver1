@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-//Body parser
+//Body parser para recibir los datos post put
 const bodyParser = require('body-parser');
 
 //Middlewares
@@ -14,10 +14,10 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+//Rutas de la api
+app.use(require('./routes/index'));
 
-app.use(require('./routes/usuarios'));
-
-mongoose.connect(`${process.env.URL_DB}&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.URL_DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(
         () => console.log('Conectado a mongodb'),
         err => { console.log('Error al conectar mongo ', err); });

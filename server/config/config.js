@@ -8,11 +8,25 @@ process.env.PORT = process.env.PORT || 3000;
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 /////////////////////////////////////
+// Config Token
+
+//Vencimiento en 30 dias
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30; // 60 segundos * 60 mnutos * 24 horas * 30 dias
+
+// SEED de auntenticacion para desarrollo, en produccion agregar la variable de entorno a heroku
+
+process.env.SEED = process.env.SEED || 'este-es-el-seed-de-desarrollo-secret';
+
+/////////////////////////////////////
 // Base de datos
 
-let urlDB;
-
+//Compara el entorno si desarrollo o produccion
 if (process.env.NODE_ENV === 'dev') {
-    urlDB = 'mongodb://localhost:27017/cafe';
-    process.env.URL_DB = urlDB;
+    process.env.URL_DB = 'mongodb://localhost:27017/cafe';
 }
+
+// Para conectarse a atlas desde desarrollo
+// else {
+//     //Usando mongo db atlas solo se debe usar en desarrollo y en produccion agregar la variable de entorno a heroku
+//     process.env.URL_DB = 'mongodb+srv://lexmaradmin:3L5ybqCBRPQioEsN@cluster0-n0ee5.mongodb.net/cafe?retryWrites=true&w=majority';
+// }

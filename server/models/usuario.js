@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate');
 const uniqueValidator = require('mongoose-unique-validator');
 
 let Schema = mongoose.Schema;
@@ -42,7 +41,7 @@ let usuarioSchema = new Schema({
     }
 });
 
-//Metodo para no regresar la contraseña al front end // se utiliza una mejor forma desde el metodo get
+//Metodo para no regresar la contraseña al front end // se utiliza una mejor forma desde el metodo get // creo que esta es la mejor forma
 // usuarioSchema.methods.toJSON = function() {
 //     let user = this;
 //     let userObject = user.toObject();
@@ -50,8 +49,6 @@ let usuarioSchema = new Schema({
 
 //     return userObject;
 // }
-
-usuarioSchema.plugin(mongoosePaginate); // Agregamos el plugin de paginacion
 
 usuarioSchema.plugin(uniqueValidator, {
     message: '{PATH} debe de ser único' //path corresponde a la propiedad que debe de ser unica
