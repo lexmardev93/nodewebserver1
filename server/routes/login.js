@@ -73,77 +73,78 @@ async function verify(token) {
 
 //Login del usuario con google
 app.post('/google', async(req, res) => {
+    // Obtenemos el token que viene en la peticion
     let token = req.body.idtoken;
 
-    let googleUser = await verify(token)
-        .catch(err => {
-            return res.status(403).json({
-                ok: false,
-                err
-            });
-        });
+    // Verificamos el token
+    verify(token).then(data => {
+        let googleUser = data;
 
-    // Verificamos que no exista el mismo correo en la bd
-    Usuario.findOne({ email: googleUser.email }, (err, usuarioDB) => {
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                err
-            });
-        }
+        // Verificamos que no exista el mismo correo en la bd
+        Usuario.findOne({ email: googleUser.email }, (err, usuarioDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
+            }
 
-        // Si el usuario existe validamos como se creo
-        if (usuarioDB) {
-            // Usuario creado normal
-            if (usuarioDB.google === false) {
-                if (err) {
+            // Si el usuario existe validamos como se creo
+            if (usuarioDB) {
+                // Usuario creado normal
+                if (usuarioDB.google === false) {
                     return res.status(400).json({
                         ok: false,
                         err: {
                             message: 'Use su usuario y contraseña creados'
                         }
                     });
-                }
-            } else {
-                // Usuario creado con google renovamos su token local no el de google el que nosotros generamos
-                let token = jwt.sign({
-                    usuario: usuarioDB
-                }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
+                } else {
+                    // Usuario creado con google renovamos su token local no el de google el que nosotros generamos
+                    let token = jwt.sign({
+                        usuario: usuarioDB
+                    }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
-                return res.json({
-                    ok: true,
-                    Usuario: usuarioDB,
-                    token
-                });
-            }
-        } else {
-            // El usuario no existe en la base de datos y lo creamos nuevo
-            let usuario = new Usuario();
-            usuario.nombre = googleUser.nombre;
-            usuario.email = googleUser.email;
-            usuario.img = googleUser.img;
-            usuario.google = true;
-            usuario.password = ':)';
-
-            usuario.save((err, usuarioDB) => {
-                if (err) {
-                    return res.status(400).json({
-                        ok: false,
-                        err
+                    return res.json({
+                        ok: true,
+                        Usuario: usuarioDB,
+                        token
                     });
                 }
+            } else {
+                // El usuario no existe en la base de datos y lo creamos nuevo
+                let usuario = new Usuario();
+                usuario.nombre = googleUser.nombre;
+                usuario.email = googleUser.email;
+                usuario.img = googleUser.img;
+                usuario.google = true;
+                usuario.password = ':)';
 
-                let token = jwt.sign({
-                    usuario: usuarioDB
-                }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
+                usuario.save((err, usuarioDB) => {
+                    if (err) {
+                        return res.status(400).json({
+                            ok: false,
+                            err
+                        });
+                    }
 
-                return res.json({
-                    ok: true,
-                    Usuario: usuarioDB,
-                    token
-                });
-            })
-        }
+                    let token = jwt.sign({
+                        usuario: usuarioDB
+                    }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
+
+                    return res.json({
+                        ok: true,
+                        Usuario: usuarioDB,
+                        token
+                    });
+                })
+            }
+        });
+    }).catch(err => {
+        return res.status(403).json({
+            ok: false,
+            err
+        });
     });
 });
 
