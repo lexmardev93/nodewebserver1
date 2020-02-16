@@ -75,12 +75,13 @@ async function verify(token) {
 app.post('/google', async(req, res) => {
     let token = req.body.idtoken;
 
-    let googleUser = await verify(token).catch(err => {
-        return res.status(403).json({
-            ok: false,
-            err
+    let googleUser = await verify(token)
+        .catch(err => {
+            return res.status(403).json({
+                ok: false,
+                err
+            });
         });
-    });
 
     // Verificamos que no exista el mismo correo en la bd
     Usuario.findOne({ email: googleUser.email }, (err, usuarioDB) => {
