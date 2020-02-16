@@ -19,3 +19,5 @@ Escucha en el localhost:3000/usuarios
 Alli puedes testear las peticiones
 
 Gracias por usar la app!
+
+Google Sing In Implementado pruebalo ya!
