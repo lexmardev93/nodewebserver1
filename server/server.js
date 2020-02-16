@@ -3,6 +3,7 @@ require('./config/config');
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path'); // Esto es un paquete de node para el uso de path
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //Rutas de la api
 app.use(require('./routes/index'));
+// Habilitar la carpeta public
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 mongoose.connect(process.env.URL_DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(

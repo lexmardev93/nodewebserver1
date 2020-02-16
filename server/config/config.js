@@ -30,3 +30,7 @@ if (process.env.NODE_ENV === 'dev') {
 //     //Usando mongo db atlas solo se debe usar en desarrollo y en produccion agregar la variable de entorno a heroku
 //     process.env.URL_DB = 'mongodb+srv://lexmaradmin:3L5ybqCBRPQioEsN@cluster0-n0ee5.mongodb.net/cafe?retryWrites=true&w=majority';
 // }
+
+/////////////////////////////////////
+// Google clienteID
+process.env.CLIENT_ID = process.env.CLIENT_ID || '358385518465-4vpme9gd8pov823q5e1cpq6mslqs57l1.apps.googleusercontent.com';
