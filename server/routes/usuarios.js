@@ -75,7 +75,7 @@ app.put('/usuarios/:id', [verificarToken, verificarRole], (req, res) => {
     //Metodo que actuliza y con el new le decimos que nos devuelva el documento actualizado
     //useFindAndModify para evitar un warning
     // runValidators para correr las validaciones que estan en el esquema
-    Usuario.findByIdAndUpdate(id, body, { new: true, useFindAndModify: false, runValidators: true }, (err, ususarioDB) => {
+    Usuario.findByIdAndUpdate(id, body, { new: true, useFindAndModify: false, runValidators: true }, (err, usuarioDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -85,7 +85,7 @@ app.put('/usuarios/:id', [verificarToken, verificarRole], (req, res) => {
 
         return res.json({
             ok: true,
-            usuario: ususarioDB
+            usuario: usuarioDB
         });
     });
 });

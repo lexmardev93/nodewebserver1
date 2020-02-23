@@ -42,13 +42,13 @@ let usuarioSchema = new Schema({
 });
 
 //Metodo para no regresar la contraseña al front end // se utiliza una mejor forma desde el metodo get // creo que esta es la mejor forma
-// usuarioSchema.methods.toJSON = function() {
-//     let user = this;
-//     let userObject = user.toObject();
-//     delete userObject.password;
+usuarioSchema.methods.toJSON = function() {
+    let user = this;
+    let userObject = user.toObject();
+    delete userObject.password;
 
-//     return userObject;
-// }
+    return userObject;
+}
 
 usuarioSchema.plugin(uniqueValidator, {
     message: '{PATH} debe de ser único' //path corresponde a la propiedad que debe de ser unica

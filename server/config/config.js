@@ -11,7 +11,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 // Config Token
 
 //Vencimiento en 30 dias
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30; // 60 segundos * 60 mnutos * 24 horas * 30 dias
+// process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30; // 60 segundos * 60 mnutos * 24 horas * 30 dias // No funciona
+process.env.CADUCIDAD_TOKEN = '48h'; // duracion del token de 48 horas
 
 // SEED de auntenticacion para desarrollo, en produccion agregar la variable de entorno a heroku
 
