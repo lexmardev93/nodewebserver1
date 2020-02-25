@@ -1,6 +1,6 @@
 const express = require('express');
 const _ = require('underscore');
-const { verificarToken, verificarRole } = require('../config/middlewares/autenticacion');
+const { verificarToken, verificarRole } = require('../middlewares/autenticacion');
 const app = express();
 
 // Importamos el modelo

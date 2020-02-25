@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const Usuario = require('../models/usuario');
-const { verificarToken, verificarRole } = require('../config/middlewares/autenticacion');
+const { verificarToken, verificarRole } = require('../middlewares/autenticacion');
 const app = express();
 
 //Verificar token es el middleware que se va a disparar antes de ejecutar la peticion y continuara solo si el middleware lo permite
